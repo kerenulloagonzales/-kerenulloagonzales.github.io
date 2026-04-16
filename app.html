@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Philosophy & Faith Quiz | Keren Ulloa Gonzales</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f5f5f0;
+            color: #2c2c2c;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAV */
+        #topnav {
+            background-color: #ffffff;
+            padding: 14px 30px;
+            text-align: right;
+            border-bottom: 2px solid #bd5d38;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        #topnav a {
+            color: #bd5d38;
+            text-decoration: none;
+            font-family: 'Arial', sans-serif;
+            font-size: 15px;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        #topnav a:hover {
+            color: #bd5d38;
+        }
+
+        /* HEADER */
+        #header {
+            background-color: #ffffff;
+            text-align: center;
+            padding: 50px 20px 30px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        #header h1 {
+            font-size: 2.4em;
+            color: #bd5d38;
+            margin-bottom: 10px;
+        }
+
+        #header p {
+            font-size: 1.1em;
+            color: #666666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* QUIZ CONTAINER */
+        #quiz-container {
+            max-width: 720px;
+            margin: 50px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* PROGRESS */
+        #progress-bar-wrapper {
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            height: 10px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        #progress-bar {
+            background-color: #bd5d38;
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+
+        #progress-text {
+            font-family: 'Arial', sans-serif;
+            font-size: 0.88em;
+            color: #888;
+            text-align: right;
+            margin-bottom: 25px;
+        }
+
+        /* QUESTION CARD */
+        #question-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        #category-label {
+            font-family: 'Arial', sans-serif;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #bd5d38;
+            margin-bottom: 12px;
+        }
+
+        #question-text {
+            font-size: 1.25em;
+            line-height: 1.6;
+            color: #2c2c2c;
+            margin-bottom: 30px;
+        }
+
+        /* OPTIONS */
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 14px 20px;
+            margin-bottom: 12px;
+            background-color: #f9f9f9;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Georgia', serif;
+            font-size: 1em;
+            color: #2c2c2c;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background-color: #fdf0ef;
+            border-color: #bd5d38;
+            color: #bd5d38;
+        }
+
+        .option-btn.correct {
+            background-color: #eafaf1;
+            border-color: #27ae60;
+            color: #1e8449;
+        }
+
+        .option-btn.incorrect {
+            background-color: #fdf0ef;
+            border-color: #bd5d38;
+            color: #bd5d38;
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+        }
+
+        /* FEEDBACK */
+        #feedback {
+            font-family: 'Arial', sans-serif;
+            font-size: 0.97em;
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            line-height: 1.6;
+        }
+
+        #feedback.correct {
+            background-color: #eafaf1;
+            color: #1e8449;
+            border-left: 4px solid #27ae60;
+        }
+
+        #feedback.incorrect {
+            background-color: #fdf0ef;
+            color: #bd5d38;
+            border-left: 4px solid #bd5d38;
+        }
+
+        /* NEXT BUTTON */
+        #next-btn {
+            display: none;
+            width: 100%;
+            padding: 15px;
+            background-color: #bd5d38;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Arial', sans-serif;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        #next-btn:hover {
+            background-color: #bd5d38;
+        }
+
+        /* RESULTS */
+        #results-card {
+            display: none;
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 50px 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        #results-card h2 {
+            font-size: 2em;
+            color: #bd5d38;
+            margin-bottom: 15px;
+        }
+
+        #score-display {
+            font-size: 3.5em;
+            font-weight: bold;
+            color: #2c2c2c;
+            margin: 20px 0;
+        }
+
+        #score-message {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 35px;
+            line-height: 1.7;
+        }
+
+        #restart-btn {
+            padding: 14px 40px;
+            background-color: #bd5d38;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Arial', sans-serif;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        #restart-btn:hover {
+            background-color: #bd5d38;
+        }
+
+        /* FOOTER */
+        #footer {
+            background-color: #ffffff;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            border-top: 1px solid #e0e0e0;
+            color: #999;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.88em;
+        }
+
+        #footer a {
+            color: #bd5d38;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        #footer a:hover {
+            color: #bd5d38;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <div id="topnav">
+        <a href="index.html">🏠 Resume</a>
+        <a href="scratch.html">📖 My Interests</a>
+    </div>
+
+    <!-- HEADER -->
+    <div id="header">
+        <h1>Philosophy & Faith Quiz</h1>
+        <p>Test your knowledge of philosophy, religion, and the big questions of life.</p>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="quiz-container">
+        <div id="progress-bar-wrapper">
+            <div id="progress-bar"></div>
+        </div>
+        <div id="progress-text">Question 1 of 10</div>
+
+        <div id="question-card">
+            <div id="category-label"></div>
+            <div id="question-text"></div>
+            <div id="options-container"></div>
+            <div id="feedback"></div>
+            <button id="next-btn" onclick="nextQuestion()">Next Question →</button>
+        </div>
+
+        <!-- RESULTS -->
+        <div id="results-card">
+            <h2>Quiz Complete!</h2>
+            <div id="score-display"></div>
+            <div id="score-message"></div>
+            <button id="restart-btn" onclick="restartQuiz()">Try Again</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div id="footer">
+        <p>Made by Keren Ulloa Gonzales &nbsp;·&nbsp;
+            <a href="index.html">Resume</a>
+            <a href="scratch.html">My Interests</a>
+        </p>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                category: "Philosophy of Religion",
+                question: "The Cosmological Argument for God's existence argues that:",
+                options: [
+                    "Everything that exists must have a cause, pointing to an uncaused first cause",
+                    "God exists because the Bible says so",
+                    "The universe has always existed with no beginning",
+                    "Morality cannot exist without humans"
+                ],
+                answer: 0,
+                explanation: "The Cosmological Argument, famously developed by Thomas Aquinas, reasons that everything that begins to exist has a cause — leading back to an uncaused first cause, which many identify as God."
+            },
+            {
+                category: "Famous Thinkers",
+                question: "Who wrote 'Mere Christianity', a famous defense of the Christian faith?",
+                options: [
+                    "Richard Dawkins",
+                    "Bertrand Russell",
+                    "C.S. Lewis",
+                    "Friedrich Nietzsche"
+                ],
+                answer: 2,
+                explanation: "C.S. Lewis wrote 'Mere Christianity' based on his BBC radio broadcasts during World War II. A former atheist, Lewis became one of the most influential Christian apologists of the 20th century."
+            },
+            {
+                category: "Atheism & Skepticism",
+                question: "Richard Dawkins' book 'The God Delusion' argues that:",
+                options: [
+                    "God's existence is scientifically provable",
+                    "Religious belief is a delusion with no rational basis",
+                    "Science and religion are fully compatible",
+                    "Morality requires a divine source"
+                ],
+                answer: 1,
+                explanation: "In 'The God Delusion' (2006), Richard Dawkins argues that belief in a personal God is irrational and that religion is a dangerous delusion. It became one of the best-selling atheist books ever written."
+            },
+            {
+                category: "Philosophy",
+                question: "Which philosopher famously said 'God is dead'?",
+                options: [
+                    "Immanuel Kant",
+                    "Søren Kierkegaard",
+                    "Friedrich Nietzsche",
+                    "René Descartes"
+                ],
+                answer: 2,
+                explanation: "Friedrich Nietzsche wrote 'God is dead' in 'The Gay Science' (1882). He meant that the Enlightenment had destroyed the basis for Christian morality in Western culture — not a literal statement about God."
+            },
+            {
+                category: "Science & Religion",
+                question: "The Fine-Tuning Argument suggests that:",
+                options: [
+                    "Evolution disproves the existence of God",
+                    "The physical constants of the universe are so precise they point to intentional design",
+                    "Science has fully explained the origin of the universe",
+                    "Religion and science always contradict each other"
+                ],
+                answer: 1,
+                explanation: "The Fine-Tuning Argument observes that the physical constants of the universe (like gravity and the speed of light) are so precisely calibrated for life that many argue it points to intentional design rather than chance."
+            },
+            {
+                category: "Philosophy of Religion",
+                question: "The Problem of Evil challenges theism by arguing that:",
+                options: [
+                    "God must be evil to allow suffering",
+                    "An all-good, all-powerful God would not allow unnecessary suffering to exist",
+                    "Evil is an illusion created by human perception",
+                    "Only atheists experience suffering"
+                ],
+                answer: 1,
+                explanation: "The Problem of Evil asks: if God is all-powerful, all-knowing, and all-good, why does suffering and evil exist? This is one of the most debated challenges to theism in philosophy."
+            },
+            {
+                category: "Famous Thinkers",
+                question: "William Lane Craig is best known for defending which argument for God's existence?",
+                options: [
+                    "The Ontological Argument",
+                    "The Moral Argument only",
+                    "The Kalam Cosmological Argument",
+                    "The Argument from Ignorance"
+                ],
+                answer: 2,
+                explanation: "William Lane Craig is famous for defending the Kalam Cosmological Argument: (1) Everything that begins to exist has a cause; (2) The universe began to exist; (3) Therefore, the universe has a cause."
+            },
+            {
+                category: "World Religions",
+                question: "Approximately what percentage of the world's population identifies as Christian?",
+                options: [
+                    "10%",
+                    "33%",
+                    "50%",
+                    "66%"
+                ],
+                answer: 1,
+                explanation: "Christianity is the world's largest religion, with roughly 2.4 billion followers — approximately 31–33% of the global population. Islam is the second largest at about 24%."
+            },
+            {
+                category: "Philosophy",
+                question: "Søren Kierkegaard is often called the father of which philosophical movement?",
+                options: [
+                    "Nihilism",
+                    "Existentialism",
+                    "Utilitarianism",
+                    "Rationalism"
+                ],
+                answer: 1,
+                explanation: "Søren Kierkegaard (1813–1855) is widely considered the father of existentialism. He emphasized individual choice, faith, and subjective experience over abstract rational systems."
+            },
+            {
+                category: "Science & Religion",
+                question: "Which of the following best describes the 'Big Bang' theory?",
+                options: [
+                    "The universe has always existed with no beginning",
+                    "The universe began from an extremely hot, dense state approximately 13.8 billion years ago",
+                    "God created the universe exactly 6,000 years ago",
+                    "The universe was created by an alien civilization"
+                ],
+                answer: 1,
+                explanation: "The Big Bang theory is the leading scientific explanation for the origin of the universe, describing how it expanded from an extremely hot, dense state about 13.8 billion years ago. Some argue this beginning points to a Creator."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            answered = false;
+
+            // Progress
+            const progress = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('progress-text').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+
+            // Category & question
+            document.getElementById('category-label').textContent = q.category;
+            document.getElementById('question-text').textContent = q.question;
+
+            // Options
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            q.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.classList.add('option-btn');
+                btn.textContent = option;
+                btn.onclick = () => selectAnswer(index);
+                container.appendChild(btn);
+            });
+
+            // Hide feedback and next
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('feedback').className = 'feedback';
+            document.getElementById('next-btn').style.display = 'none';
+
+            // Show next button label
+            document.getElementById('next-btn').textContent =
+                currentQuestion === questions.length - 1 ? 'See Results 🎉' : 'Next Question →';
+        }
+
+        function selectAnswer(selected) {
+            if (answered) return;
+            answered = true;
+
+            const q = questions[currentQuestion];
+            const buttons = document.querySelectorAll('.option-btn');
+
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selected === q.answer) {
+                score++;
+                buttons[selected].classList.add('correct');
+                const feedback = document.getElementById('feedback');
+                feedback.className = 'correct';
+                feedback.innerHTML = `✅ <strong>Correct!</strong> ${q.explanation}`;
+                feedback.style.display = 'block';
+            } else {
+                buttons[selected].classList.add('incorrect');
+                buttons[q.answer].classList.add('correct');
+                const feedback = document.getElementById('feedback');
+                feedback.className = 'incorrect';
+                feedback.innerHTML = `❌ <strong>Not quite.</strong> The correct answer was: <strong>${q.options[q.answer]}</strong>. ${q.explanation}`;
+                feedback.style.display = 'block';
+            }
+
+            document.getElementById('next-btn').style.display = 'block';
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('question-card').style.display = 'none';
+            document.getElementById('progress-bar-wrapper').style.display = 'none';
+            document.getElementById('progress-text').style.display = 'none';
+
+            const results = document.getElementById('results-card');
+            results.style.display = 'block';
+
+            document.getElementById('score-display').textContent = `${score} / ${questions.length}`;
+
+            let message = '';
+            const pct = score / questions.length;
+            if (pct === 1) {
+                message = "Perfect score! 🎉 You have an exceptional grasp of philosophy and religion. Have you considered taking a philosophy course?";
+            } else if (pct >= 0.8) {
+                message = "Excellent work! 🌟 You clearly have a strong interest in and understanding of these big questions.";
+            } else if (pct >= 0.6) {
+                message = "Good job! 📚 You know quite a bit — keep exploring and reading to deepen your understanding.";
+            } else if (pct >= 0.4) {
+                message = "Not bad! 🤔 These are tough topics. Check out some of the books and debates on the Interests page to learn more.";
+            } else {
+                message = "Keep exploring! 🌱 Philosophy and religion are deep fields. Every question you ask brings you closer to understanding.";
+            }
+
+            document.getElementById('score-message').textContent = message;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answered = false;
+
+            document.getElementById('question-card').style.display = 'block';
+            document.getElementById('progress-bar-wrapper').style.display = 'block';
+            document.getElementById('progress-text').style.display = 'block';
+            document.getElementById('results-card').style.display = 'none';
+
+            loadQuestion();
+        }
+
+        // Start the quiz
+        loadQuestion();
+    </script>
+
+</body>
+</html>

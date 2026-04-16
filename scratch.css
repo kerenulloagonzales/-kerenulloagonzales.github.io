@@ -1,0 +1,252 @@
+body {
+    font-family: 'Georgia', serif;
+    background-color: #ffffff;
+    color: #2c2c2c;
+    margin: 0;
+    padding: 0;
+}
+
+/* NAV */
+div#topnav {
+    background-color: #bd5d38;
+    padding: 15px 30px;
+    text-align: right;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid #a04d2e;
+}
+
+div#topnav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+div#topnav a:hover {
+    color: #f5ddd3;
+}
+
+/* HERO */
+div#hero {
+    background-color: #bd5d38;
+    color: #ffffff;
+    text-align: center;
+    padding: 80px 20px;
+    border-bottom: 4px solid #a04d2e;
+}
+
+div#hero h1 {
+    font-size: 3em;
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-family: 'Georgia', serif;
+}
+
+div#hero p {
+    font-size: 1.3em;
+    color: #f5ddd3;
+    margin-bottom: 25px;
+}
+
+div#hero a {
+    color: #ffffff;
+    font-size: 1.2em;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid #ffffff;
+    padding: 8px 20px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+div#hero a:hover {
+    background-color: #a04d2e;
+}
+
+/* ABOUT */
+div#about-section {
+    max-width: 860px;
+    margin: 50px auto;
+    padding: 30px 40px;
+    background-color: #fdf6f3;
+    border-left: 5px solid #bd5d38;
+    border-radius: 6px;
+}
+
+div#about-section h2 {
+    color: #bd5d38;
+    font-family: 'Arial', sans-serif;
+}
+
+div#about-section p {
+    line-height: 1.9;
+    font-size: 1.05em;
+    color: #3a3a3a;
+}
+
+/* TOPICS */
+div#topics {
+    max-width: 860px;
+    margin: 50px auto;
+    padding: 30px 40px;
+    background-color: #fdf6f3;
+    border-radius: 6px;
+}
+
+div#topics h2 {
+    color: #bd5d38;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 20px;
+}
+
+div#topics ol {
+    font-size: 1.05em;
+    line-height: 2;
+    color: #2c2c2c;
+}
+
+div#topics ul {
+    color: #6b4c3b;
+    font-size: 0.97em;
+}
+
+/* IMAGE */
+div#image-section {
+    max-width: 860px;
+    margin: 50px auto;
+    padding: 30px 40px;
+    text-align: center;
+    background-color: #fdf6f3;
+    border-radius: 6px;
+}
+
+div#image-section h2 {
+    color: #bd5d38;
+    font-family: 'Arial', sans-serif;
+}
+
+div#image-section img {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 8px;
+    border: 3px solid #bd5d38;
+    margin: 20px auto;
+    display: block;
+}
+
+div#image-section p {
+    color: #888888;
+    font-style: italic;
+}
+
+/* VIDEO */
+div#video-section {
+    max-width: 860px;
+    margin: 50px auto;
+    padding: 30px 40px;
+    background-color: #fdf6f3;
+    border-radius: 6px;
+    text-align: center;
+}
+
+div#video-section h2 {
+    color: #bd5d38;
+    font-family: 'Arial', sans-serif;
+}
+
+div#video-section p {
+    margin-bottom: 20px;
+    color: #555555;
+}
+
+div#video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 3px solid #bd5d38;
+}
+
+div#video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* TABLEAU */
+div#tableau-section {
+    max-width: 860px;
+    margin: 50px auto;
+    padding: 30px 40px;
+    background-color: #fdf6f3;
+    border-radius: 6px;
+}
+
+div#tableau-section h2 {
+    color: #bd5d38;
+    font-family: 'Arial', sans-serif;
+}
+
+div#tableau-section p {
+    color: #555555;
+    margin-bottom: 20px;
+}
+
+/* RESOURCES */
+div#resources-section {
+    max-width: 860px;
+    margin: 50px auto;
+    padding: 30px 40px;
+    background-color: #fdf6f3;
+    border-radius: 6px;
+}
+
+div#resources-section h2 {
+    color: #bd5d38;
+    font-family: 'Arial', sans-serif;
+}
+
+div#resources-section ul {
+    line-height: 2.2;
+    font-size: 1.05em;
+    color: #3a3a3a;
+}
+
+/* HR */
+hr {
+    border: none;
+    border-top: 1px solid #bd5d38;
+    max-width: 860px;
+    margin: 30px auto;
+    opacity: 0.3;
+}
+
+/* FOOTER */
+div#footer {
+    background-color: #bd5d38;
+    text-align: center;
+    padding: 30px;
+    margin-top: 60px;
+    border-top: 2px solid #a04d2e;
+    color: #f5ddd3;
+    font-family: 'Arial', sans-serif;
+    font-size: 0.9em;
+}
+
+div#footer a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+div#footer a:hover {
+    color: #f5ddd3;
+}
